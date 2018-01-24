@@ -69,9 +69,7 @@ public class Purse {
      *  @return true if purse is full.
      */
     public boolean isFull() {
-        if (this.getCapacity()==this.count()) {
-        	return true;
-        }
+        if (this.count()>=this.getCapacity()) { return true; }
         return false;
     }
 
@@ -134,9 +132,7 @@ public class Purse {
 						tempList.add(money.get(remain));
 						amount = amount - money.get(remain).getValue();
 						money.remove(remain);
-					}
-					else { return null; }
-				}
+					}				}
 			}
 		}
 
