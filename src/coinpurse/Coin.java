@@ -41,11 +41,11 @@ public class Coin implements Comparable<Coin> {
 	 * @return true if two Coins are equal
 	 * 		   false if two Coins are different
 	 */
-	public boolean equals(Object arg) {
-		if (arg == null) return false;
-		if (arg.getClass() != this.getClass()) return false;
-		Coin other = (Coin) arg;
-		if (arg.equals(other)) return true;
+	public boolean equals(Coin coins) {
+		if (coins == null) return false;
+		if (coins.getClass() != this.getClass()) return false;
+		Coin other = (Coin) coins;
+		if (coins.getValue() == other.getValue()) return true;
 		return false;
 	}
 	

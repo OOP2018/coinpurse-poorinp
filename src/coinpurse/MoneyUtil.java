@@ -36,12 +36,9 @@ public class MoneyUtil {
 	 */
 	public static List<Coin> filterByCurrency(List<Coin> coins, String currency) {
 		List<Coin> temp = new ArrayList<>();
-		for (int index = coins.size()-1; index>=0; index--) {
-			if (coins.get(index).getCurrency().equalsIgnoreCase(currency)) {
+		for (int index = 0; index<coins.size(); index++) {
+			if (coins.get(index).getCurrency().equals(currency)) {
 				temp.add(coins.get(index));
-			}
-			else {
-				coins.remove(index);
 			}
 		}
 		return temp;
@@ -50,13 +47,13 @@ public class MoneyUtil {
 	public static void main(String[] args) {
 		List<Coin> coins = new ArrayList<Coin>();
 		coins.add( new Coin(10.0, "Baht") );
-		coins.add( new Coin(3.5, "Dollar") );
+		coins.add( new Coin(3.5, "Baht") );
 		coins.add( new Coin(6.0, "Rupee") );
 		coins.add( new Coin(100.0, "Baht") );
 		printCoins( coins );
 		System.out.println("-------------------");
-		sortCoins(coins);
-		printCoins( coins );
+//		sortCoins(coins);
+//		printCoins( coins );
 		System.out.println("-------------------");
 		filterByCurrency(coins, "Baht");
 		printCoins(coins);
