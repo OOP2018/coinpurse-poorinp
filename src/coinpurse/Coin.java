@@ -33,7 +33,7 @@ public class Coin implements Comparable<Coin> {
 	 * @return the currency of Coin
 	 */
 	public String getCurrency() {
-		return currency;
+		return this.currency;
 	}
 	
 	/**
@@ -52,13 +52,14 @@ public class Coin implements Comparable<Coin> {
 	/**
 	 * This method can commpare the value of coin.
 	 * @param coin is the value of coin 
-	 * @return -1 if this value of Coin is more than value of the others
-	 * 		    1 if this value of Coin is less than value of the others
+	 * @return -1 if this value of Coin is less than value of the others
+	 * 		    1 if this value of Coin is more than value of the others
 	 * 			0 if this value of Coin is equal to value of the others
 	 */
 	public int compareTo(Coin coin) {
-		if (this.value > coin.value) return -1;
-		if (this.value < coin.value) return 1;
+		if (this.value < coin.value) return -1;
+		if (this.value == coin.value) return 0;
+		if (this.value > coin.value) return 1;
 		else return 0;
 	}
 	

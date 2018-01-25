@@ -3,6 +3,7 @@ package coinpurse;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Collection;
 
 /**
  * This Class is a class to practice the using of List.
@@ -36,9 +37,9 @@ public class MoneyUtil {
 	 */
 	public static List<Coin> filterByCurrency(List<Coin> coins, String currency) {
 		List<Coin> temp = new ArrayList<>();
-		for (int index = 0; index<coins.size(); index++) {
-			if (coins.get(index).getCurrency().equals(currency)) {
-				temp.add(coins.get(index));
+		for (Coin coin: coins) {
+			if (coin.getCurrency().equals(currency)) {
+				temp.add(coin);
 			}
 		}
 		return temp;
@@ -55,7 +56,7 @@ public class MoneyUtil {
 //		sortCoins(coins);
 //		printCoins( coins );
 		System.out.println("-------------------");
-		filterByCurrency(coins, "Baht");
+		coins = filterByCurrency(coins, "Baht");
 		printCoins(coins);
 	}
 }

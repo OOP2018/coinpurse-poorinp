@@ -69,7 +69,7 @@ public class Purse {
      *  @return true if purse is full.
      */
     public boolean isFull() {
-        if (this.count()>=this.getCapacity()) { return true; }
+        if (money.size() >= capacity) { return true; }
         return false;
     }
 
@@ -118,32 +118,37 @@ public class Purse {
 		* from the money list, and return the temporary
 		* list (as an array).
 		*/
-    	ArrayList<Coin> tempList = new ArrayList<>();
+    	List<Coin> tempList = new ArrayList<>();
+    	Collections.sort(money);
+    	Collections.reverse(money);
 		// Did we get the full amount?
 		// This code assumes you decrease amount each time you remove a coin.
     	// Your code might use some other variable for the remaining amount to withdraw.
-		if ( amount != 0 )
-		{	
-			// failed. Don't change the contents of the purse.
-			if (amount < 0) { return null; }
-			else {
-				for (int remain = money.size()-1;remain>=0;remain--) {
-					if (money.get(remain).getValue() <= amount){
-						tempList.add(money.get(remain));
-						amount = amount - money.get(remain).getValue();
-						money.remove(remain);
-					}				}
-			}
-		}
+    	if ( amount >= 0 )
+    	{	
+    		// failed. Don't change the contents of the purse.
+    		for (Coin coins: money) {
+    			if (amount >= coins.getValue()) {
+    				tempList.add(coins);
+    				amount = amount - coins.getValue();
+    			}
+    		}
+    	}
+    	if (amount == 0) {
+    		for(Coin coins: tempList) {
+    			money.remove(coins);
+    		}
+    		Coin[] array = new Coin[ tempList.size() ];
+    		tempList.toArray(array);
+            return array;
+    	}
+		return null;
 
 		// Success.
 		// Remove the coins you want to withdraw from purse,
 		// and return them as an array.
 		// Use list.toArray( array[] ) to copy a list into an array.
 		// toArray returns a reference to the array itself.
-		Coin[] array = new Coin[ tempList.size() ];
-		tempList.toArray(array);
-        return array;
 	}
   
     /** 
