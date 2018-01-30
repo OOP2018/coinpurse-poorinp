@@ -45,7 +45,7 @@ public class Coin implements Comparable<Coin> {
 		if (coins == null) return false;
 		if (coins.getClass() != this.getClass()) return false;
 		Coin other = (Coin) coins;
-		if (coins.getValue() == other.getValue()) return true;
+		if (coins.getValue() == other.getValue() && coins.getCurrency() == other.getCurrency() ) return true;
 		return false;
 	}
 	
