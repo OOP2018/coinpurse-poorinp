@@ -23,9 +23,9 @@ public class MoneyUtil {
 	 * print the solution of coins
 	 * @param coins is the coin in List to print
 	 */
-	public static void printCoins(List<Coin> coins) {
-		for (Coin coin : coins) {
-			System.out.println(coin);
+	public static void printCoins(List<Valuable> money) {
+		for (Valuable moneyValue : money) {
+			System.out.println(moneyValue);
 		}
 	}
 	
@@ -35,28 +35,28 @@ public class MoneyUtil {
 	 * @param currency is currency to sort by
 	 * @return the new List that have only the same currency coins
 	 */
-	public static List<Coin> filterByCurrency(List<Coin> coins, String currency) {
-		List<Coin> temp = new ArrayList<>();
-		for (Coin coin: coins) {
-			if (coin.getCurrency().equals(currency)) {
-				temp.add(coin);
+	public static List<Valuable> filterByCurrency(List<Valuable> money, String currency) {
+		List<Valuable> temp = new ArrayList<>();
+		for (Valuable moneyValue: money) {
+			if (moneyValue.getCurrency().equals(currency)) {
+				temp.add(moneyValue);
 			}
 		}
 		return temp;
 	}
 	
 	public static void main(String[] args) {
-		List<Coin> coins = new ArrayList<Coin>();
-		coins.add( new Coin(10.0, "Baht") );
-		coins.add( new Coin(3.5, "Baht") );
-		coins.add( new Coin(6.0, "Rupee") );
-		coins.add( new Coin(100.0, "Baht") );
-		printCoins( coins );
+		List<Valuable> money = new ArrayList<Valuable>();
+		money.add( new Coin(10.0, "Baht") );
+		money.add( new Coin(3.5, "Baht") );
+		money.add( new Coin(6.0, "Rupee") );
+		money.add( new Coin(100.0, "Baht") );
+		printCoins( money );
 		System.out.println("-------------------");
 //		sortCoins(coins);
 //		printCoins( coins );
 		System.out.println("-------------------");
-		coins = filterByCurrency(coins, "Baht");
-		printCoins(coins);
+		money = filterByCurrency(money, "Baht");
+		printCoins(money);
 	}
 }

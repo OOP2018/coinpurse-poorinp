@@ -3,6 +3,7 @@ package coinpurse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+import java.util.Comparator;
 
 //TODO import List, ArrayList, and Collections
 // You will use Collections.sort() to sort the coins
@@ -14,9 +15,9 @@ import java.util.Collections;
  *  
  *  @author Poorin Pichayamongkol
  */
-public class Purse {
+public class Purse implements Valuable {
     /** Collection of objects in the purse. */
-    List<Coin> money;
+    List<Valuable> money;
     
     /** Capacity is maximum number of items the purse can hold.
      *  Capacity is set when the purse is created and cannot be changed.
@@ -47,8 +48,8 @@ public class Purse {
      */
     public double getBalance() {
     	double sum = 0;
-    	for (Coin coin: money) {
-    		sum += coin.getValue();
+    	for (Valuable moneyValue: money) {
+    		sum += moneyValue.getValue();
     	}
 		return sum; 
 	}
@@ -79,15 +80,15 @@ public class Purse {
      * @param coin is a Coin object to insert into purse
      * @return true if coin inserted, false if can't insert
      */
-    public boolean insert( Coin coin ) {
+    public boolean insert( Valuable moneyValue ) {
         // if the purse is already full then can't insert anything.
     	if (this.isFull()==true) {
     		return false;
     	}
     	else {
-    		if (coin.getValue() <= 0) return false;
+    		if (moneyValue.getValue() <= 0) return false;
     		else {
-    			money.add(coin);
+    			money.add(moneyValue);
         		return true;
     		}
     	}
@@ -101,7 +102,7 @@ public class Purse {
      *  @return array of Coin objects for money withdrawn, 
 	 *    or null if cannot withdraw requested amount.
      */
-    public Coin[] withdraw( double amount ) {
+    public Valuable[] withdraw( double amount ) {
 	   /*
 		* See lab sheet for outline of a solution, 
 		* or devise your own solution.
@@ -117,8 +118,9 @@ public class Purse {
 		* from the money list, and return the temporary
 		* list (as an array).
 		*/
-    	List<Coin> tempList = new ArrayList<>();
-    	Collections.sort(money);
+    	List<Valuable> tempList = new ArrayList<>();
+    	Comparator <Valuable> comp = new ValueComparator();
+    	Collections.sort(money, comp);
     	Collections.reverse(money);
 		// Did we get the full amount?
 		// This code assumes you decrease amount each time you remove a coin.
@@ -126,18 +128,18 @@ public class Purse {
     	if ( amount >= 0 )
     	{	
     		// failed. Don't change the contents of the purse.
-    		for (Coin coins: money) {
-    			if (amount >= coins.getValue()) {
-    				tempList.add(coins);
-    				amount = amount - coins.getValue();
+    		for (Valuable moneyValue: money) {
+    			if (amount >= moneyValue.getValue()) {
+    				tempList.add(moneyValue);
+    				amount = amount - moneyValue.getValue();
     			}
     		}
     	}
     	if (amount == 0) {
-    		for(Coin coins: tempList) {
-    			money.remove(coins);
+    		for(Valuable moneyValue: tempList) {
+    			money.remove(moneyValue);
     		}
-    		Coin[] array = new Coin[ tempList.size() ];
+    		Valuable[] array = new Valuable[ tempList.size() ];
     		tempList.toArray(array);
             return array;
     	}
@@ -155,6 +157,17 @@ public class Purse {
      * It can return whatever is a useful description.
      */
     public String toString() {
-    	return this.count()+" Coins with value "+this.getBalance();
+    	return this.count()+" money with value "+this.getBalance();
     }
+
+	@Override
+	public double getValue() {
+		return this.getValue();
+	}
+
+	@Override
+	public String getCurrency() {
+		return this.getCurrency();
+	}
+
 }
