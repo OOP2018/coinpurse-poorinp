@@ -16,11 +16,12 @@ public class BankNote implements Valuable{
 	 * @param currency is the currency of banknote.
 	 */
 	public BankNote( double value, String currency) {
+		nextSerialNumber++;
+		this.serialNumber = nextSerialNumber;
 		if(value >= 0) {
 			this.value = value; 
 		}
 		this.currency = currency;
-		this.serialNumber = 1000000;
 	}
 	
 	/**

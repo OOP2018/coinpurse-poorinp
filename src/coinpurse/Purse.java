@@ -19,6 +19,11 @@ public class Purse implements Valuable {
     /** Collection of objects in the purse. */
     List<Valuable> money;
     
+    /**
+     * Comparator of objects in the purse
+     */
+    private static final Comparator <Valuable> comp = new ValueComparator();
+    
     /** Capacity is maximum number of items the purse can hold.
      *  Capacity is set when the purse is created and cannot be changed.
      */
@@ -119,7 +124,6 @@ public class Purse implements Valuable {
 		* list (as an array).
 		*/
     	List<Valuable> tempList = new ArrayList<>();
-    	Comparator <Valuable> comp = new ValueComparator();
     	Collections.sort(money, comp);
     	Collections.reverse(money);
 		// Did we get the full amount?
