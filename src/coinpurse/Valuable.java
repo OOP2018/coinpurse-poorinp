@@ -12,6 +12,11 @@ public interface Valuable {
 	 * @return the value of this object
 	 */
 	public double getValue();
+	
+	/**
+	 * Get the monetary currency of this objects with the currency.
+	 * @return the currency of this this object
+	 */
 	public String getCurrency();
 	
 }
