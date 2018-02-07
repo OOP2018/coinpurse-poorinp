@@ -13,13 +13,15 @@ public class ValueComparator implements Comparator<Valuable> {
 	* 		  1 if value of a more than b in the same currency or a is "Dollar" and b is "Baht"
 	*/
 	public int compare(Valuable a, Valuable b) {
-		if (a.getCurrency() == "Baht" && b.getCurrency() == "Dollar") return -1;
-		if (a.getCurrency() == b.getCurrency()){
+		String ac = a.getCurrency();
+		String bc = b.getCurrency();
+		if (ac.compareTo(bc) < 0) return -1;
+		if (ac.compareTo(bc) == 0) {
 			if (a.getValue() < b.getValue()) return -1;
 			if (a.getValue() == b.getValue()) return 0;
 			if (a.getValue() > b.getValue()) return 1;
 		}
-		if (a.getCurrency() == "Dollar" && b.getCurrency() == "Baht") return 1;
+		if (ac.compareTo(bc) > 0) return 1;
 		else return 0;
 	}
 }
