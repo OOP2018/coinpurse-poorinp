@@ -3,50 +3,14 @@ package coinpurse;
  * Coin represents coinage (money) with a fixed value and currency.
  * @author Poorin Pichayamongkol 
  */
-public class Coin implements Comparable<Coin> , Valuable {
-	private double value;
-	private String currency;
-	
+public class Coin extends Money implements Comparable<Coin> , Valuable {
 	/**
 	 * Constructure of Coin with value that cannot be negative and currency. 
 	 * @param value is the value of coin.
 	 * @param currency is the currency of coin.
 	 */
 	public Coin (double value, String currency) {
-		if(value >= 0) {
-			this.value = value; 
-		}
-		else System.out.println("Retry!");
-		this.currency = currency;
-	}
-	
-	/**
-	 * getValue() can get the value and return the value.
-	 * @return value of the Coin
-	 */
-	public double getValue() {
-		return value;
-	}
-	
-	/**
-	 * getCurrency() can get the currency of the coin and return the currency of Coin
-	 * @return the currency of Coin
-	 */
-	public String getCurrency() {
-		return this.currency;
-	}
-	
-	/**
-	 * This method can check that two Coin can be equal both value and currency or not.
-	 * @return true if two Coins are equal
-	 * 		   false if two Coins are different
-	 */
-	public boolean equals(Coin coins) {
-		if (coins == null) return false;
-		if (coins.getClass() != this.getClass()) return false;
-		Coin other = (Coin) coins;
-		if (value == other.getValue() && currency.equalsIgnoreCase(other.getCurrency()) ) return true;
-		return false;
+		super(value, currency);
 	}
 	
 	/**
