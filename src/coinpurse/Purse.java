@@ -5,17 +5,16 @@ import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
 
-//TODO import List, ArrayList, and Collections
-// You will use Collections.sort() to sort the coins
+// You will use Collections.sort() to sort the money
 
 /**
- *  A coin purse contains coins.
+ *  A coin purse contains money.
  *  You can insert coins, withdraw money, check the balance,
  *  and check if the purse is full.
  *  
  *  @author Poorin Pichayamongkol
  */
-public class Purse implements Valuable {
+public class Purse {
     /** Collection of objects in the purse. */
     List<Valuable> money;
     
@@ -31,7 +30,7 @@ public class Purse implements Valuable {
     
     /** 
      *  Create a purse with a specified capacity.
-     *  @param capacity is maximum number of coins you can put in purse.
+     *  @param capacity is maximum number of money you can put in purse.
      */
     public Purse( int capacity ) {
     	this.capacity = capacity;
@@ -39,9 +38,9 @@ public class Purse implements Valuable {
     }
 
     /**
-     * Count and return the number of coins in the purse.
-     * This is the number of coins, not their value.
-     * @return the number of coins in the purse
+     * Count and return the number of money in the purse.
+     * This is the number of money, not their value.
+     * @return the number of money in the purse
      */
     public int count() { 
     	return money.size();
@@ -79,11 +78,11 @@ public class Purse implements Valuable {
     }
 
     /** 
-     * Insert a coin into the purse.
-     * The coin is only inserted if the purse has space for it
-     * and the coin has positive value.  No worthless coins!
-     * @param coin is a Coin object to insert into purse
-     * @return true if coin inserted, false if can't insert
+     * Insert money into the purse.
+     * The money is only inserted if the purse has space for it
+     * and money has positive value.  No worthless money!
+     * @param money is a Money object to insert into purse
+     * @return true if money inserted, false if can't insert
      */
     public boolean insert( Valuable moneyValue ) {
         // if the purse is already full then can't insert anything.
@@ -101,10 +100,10 @@ public class Purse implements Valuable {
     
     /**  
      *  Withdraw the requested amount of money.
-     *  Return an array of Coins withdrawn from purse,
+     *  Return an array of money withdrawn from purse,
      *  or return null if cannot withdraw the amount requested.
      *  @param amount is the amount to withdraw
-     *  @return array of Coin objects for money withdrawn, 
+     *  @return array of money objects for money withdrawn, 
 	 *    or null if cannot withdraw requested amount.
      */
     public Valuable[] withdraw( double amount ) {
@@ -129,8 +128,7 @@ public class Purse implements Valuable {
 		// Did we get the full amount?
 		// This code assumes you decrease amount each time you remove a coin.
     	// Your code might use some other variable for the remaining amount to withdraw.
-    	if ( amount >= 0 )
-    	{	
+    	if ( amount >= 0 ) {	
     		// failed. Don't change the contents of the purse.
     		for (Valuable moneyValue: money) {
     			if (amount >= moneyValue.getValue()) {
@@ -155,7 +153,37 @@ public class Purse implements Valuable {
 		// Use list.toArray( array[] ) to copy a list into an array.
 		// toArray returns a reference to the array itself.
 	}
-  
+    
+    /**
+     * Withdraw the amount that have the same currency that requested
+     * @param amount is the amount of money that want to withdraw
+     * @return the array of money that have withdrawn
+     */
+    public Valuable[] withdraw(Valuable amount) {
+    	List<Valuable> tempList = new ArrayList<>();
+    	double wd = amount.getValue();
+    	Collections.sort(money, comp);
+    	Collections.reverse(tempList);
+    	for (int i = 0; i <= money.size()-1; i++) {
+    		Valuable moneyValue = money.get(i);
+    		if (wd >= 0 && amount.getCurrency().equals(money.get(i).getCurrency())) {
+    			if (wd >= money.get(i).getValue()) {
+    				tempList.add(moneyValue);
+    				wd -= money.get(i).getValue();
+    			}
+    		}
+    	}
+    	for (int i = 0; i <= money.size()-1; i++) {
+    		Valuable moneyValue = money.get(i);
+    		if (wd == 0 && amount.getCurrency().equals(money.get(i).getCurrency())) {
+    			money.remove(moneyValue);
+    		}
+    	}
+    	Valuable[] array = new Valuable[ tempList.size() ];
+    	tempList.toArray(array);
+    	return array;
+    }
+    
     /** 
      * toString returns a string description of the purse contents.
      * It can return whatever is a useful description.
@@ -163,15 +191,20 @@ public class Purse implements Valuable {
     public String toString() {
     	return this.count()+" money with value "+this.getBalance();
     }
-
-	@Override
-	public double getValue() {
-		return this.getValue();
-	}
-
-	@Override
-	public String getCurrency() {
-		return this.getCurrency();
-	}
-
+    
+    //test purse.withdraw(Valuable amount)
+//	public static void main(String[] args) {
+//		Purse p = new Purse(5);
+//		Coin c1 = new Coin(20, "Baht");
+//		Coin c2 = new Coin(10, "Baht");
+//		Coin c3 = new Coin(50, "USD");
+//		Coin c4 = new Coin(10, "USD");
+//		p.insert(c1);
+//		p.insert(c2);
+//		p.insert(c3);
+//		p.insert(c4);
+//		p.withdraw(c4);
+//		System.out.println(p.toString());
+//		System.out.println(c3.getCurrency());
+//	}
 }

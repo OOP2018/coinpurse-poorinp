@@ -45,18 +45,19 @@ public class MoneyUtil {
 		return temp;
 	}
 	
-	public static void main(String[] args) {
-		List<Valuable> money = new ArrayList<Valuable>();
-		money.add( new Coin(10.0, "Baht") );
-		money.add( new Coin(3.5, "Baht") );
-		money.add( new Coin(6.0, "Rupee") );
-		money.add( new Coin(100.0, "Baht") );
-		printCoins( money );
-		System.out.println("-------------------");
-//		sortCoins(coins);
-//		printCoins( coins );
-		System.out.println("-------------------");
-		money = filterByCurrency(money, "Baht");
-		printCoins(money);
-	}
+	//test MoneyUtil
+//	public static void main(String[] args) {
+//		List<Valuable> money = new ArrayList<Valuable>();
+//		money.add( new Coin(10.0, "Baht") );
+//		money.add( new Coin(3.5, "Baht") );
+//		money.add( new Coin(6.0, "Rupee") );
+//		money.add( new Coin(100.0, "Baht") );
+//		printCoins( money );
+//		System.out.println("-------------------");
+////		sortCoins(coins);
+////		printCoins( coins );
+//		System.out.println("-------------------");
+//		money = filterByCurrency(money, "Baht");
+//		printCoins(money);
+//	}
 }
