@@ -3,7 +3,7 @@ package coinpurse;
  * Coin represents coinage (money) with a fixed value and currency.
  * @author Poorin Pichayamongkol 
  */
-public class Coin extends Money implements Valuable {
+public class Coin extends Money {
 	/**
 	 * Constructure of Coin with value that cannot be negative and currency. 
 	 * @param value is the value of coin.

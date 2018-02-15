@@ -16,7 +16,7 @@ import java.util.Comparator;
  */
 public class Purse {
     /** Collection of objects in the purse. */
-    List<Valuable> money;
+    static List<Valuable> money;
     
     /**
      * Comparator of objects in the purse
@@ -162,7 +162,7 @@ public class Purse {
     public Valuable[] withdraw(Valuable amount) {
     	List<Valuable> tempList = new ArrayList<>();
     	double wd = amount.getValue();
-    	Collections.sort(money, comp);
+    	MoneyUtil.filterByCurrency(money, amount.getCurrency());
     	Collections.reverse(tempList);
     	for (int i = 0; i <= money.size()-1; i++) {
     		Valuable moneyValue = money.get(i);
@@ -193,18 +193,22 @@ public class Purse {
     }
     
     //test purse.withdraw(Valuable amount)
-//	public static void main(String[] args) {
-//		Purse p = new Purse(5);
-//		Coin c1 = new Coin(20, "Baht");
-//		Coin c2 = new Coin(10, "Baht");
-//		Coin c3 = new Coin(50, "USD");
-//		Coin c4 = new Coin(10, "USD");
-//		p.insert(c1);
-//		p.insert(c2);
-//		p.insert(c3);
-//		p.insert(c4);
-//		p.withdraw(c4);
-//		System.out.println(p.toString());
-//		System.out.println(c3.getCurrency());
-//	}
+	public static void main(String[] args) {
+		Purse p = new Purse(10);
+		p.insert(new Coin(1,"Baht"));
+		p.insert(new BankNote(2,"Dollar"));
+		p.insert(new Coin(4,"Baht"));
+		p.insert(new Coin(5,"Dollar"));
+		p.insert(new Coin(8,"Baht"));
+		p.insert(new Coin(10,"Baht"));
+		boolean shit = p.insert(new BankNote(30,"Baht"));
+		System.out.println(shit);
+		Valuable[] array = p.withdraw(new Coin(13,"Baht"));
+		for (Valuable ele : array) {
+			System.out.println(ele);
+		}
+		
+		System.out.println(p.toString());
+		System.out.println(money);
+	}
 }

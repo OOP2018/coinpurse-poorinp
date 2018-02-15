@@ -34,10 +34,10 @@ public class Money implements Valuable{
 	 * @return true if two Money are equal
 	 * 		   false if two Money are different
 	 */
-	public boolean equals(Valuable obj) {
+	public boolean equals(Money obj) {
 		if (obj == null) return false;
 		if (obj.getClass() != this.getClass()) return false;
-		Valuable other = (Valuable) obj;
+		Money other = (Money) obj;
 		if (value == other.getValue() && currency.equalsIgnoreCase(other.getCurrency())) return true;
 		return false;	
 	}

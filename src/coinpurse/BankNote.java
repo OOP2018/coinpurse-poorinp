@@ -3,7 +3,7 @@ package coinpurse;
  * BankNote represents banknote with a fixed value and currency.
  * @author Poorin Pichayamongkol 
  */
-public class BankNote extends Money implements Valuable{
+public class BankNote extends Money {
 	
 	private static long nextSerialNumber = 1000000;
 	private long serialNumber;
