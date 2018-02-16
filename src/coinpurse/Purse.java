@@ -16,7 +16,7 @@ import java.util.Comparator;
  */
 public class Purse {
     /** Collection of objects in the purse. */
-    static List<Valuable> money;
+    public static List<Valuable> money;
     
     /**
      * Comparator of objects in the purse
@@ -122,31 +122,11 @@ public class Purse {
 		* from the money list, and return the temporary
 		* list (as an array).
 		*/
-    	List<Valuable> tempList = new ArrayList<>();
-    	Collections.sort(money, comp);
-    	Collections.reverse(money);
 		// Did we get the full amount?
 		// This code assumes you decrease amount each time you remove a coin.
     	// Your code might use some other variable for the remaining amount to withdraw.
-    	if ( amount >= 0 ) {	
-    		// failed. Don't change the contents of the purse.
-    		for (Valuable moneyValue: money) {
-    			if (amount >= moneyValue.getValue()) {
-    				tempList.add(moneyValue);
-    				amount = amount - moneyValue.getValue();
-    			}
-    		}
-    	}
-    	if (amount == 0) {
-    		for(Valuable moneyValue: tempList) {
-    			money.remove(moneyValue);
-    		}
-    		Valuable[] array = new Valuable[ tempList.size() ];
-    		tempList.toArray(array);
-            return array;
-    	}
-		return null;
-
+    	Valuable moneyV = new Money(amount, "Baht");
+    	return withdraw(moneyV);
 		// Success.
 		// Remove the coins you want to withdraw from purse,
 		// and return them as an array.
@@ -162,26 +142,26 @@ public class Purse {
     public Valuable[] withdraw(Valuable amount) {
     	List<Valuable> tempList = new ArrayList<>();
     	double wd = amount.getValue();
-    	MoneyUtil.filterByCurrency(money, amount.getCurrency());
-    	Collections.reverse(tempList);
-    	for (int i = 0; i <= money.size()-1; i++) {
-    		Valuable moneyValue = money.get(i);
-    		if (wd >= 0 && amount.getCurrency().equals(money.get(i).getCurrency())) {
-    			if (wd >= money.get(i).getValue()) {
-    				tempList.add(moneyValue);
-    				wd -= money.get(i).getValue();
+    	money = MoneyUtil.filterByCurrency(money, amount.getCurrency());
+    	Collections.sort(money, comp);
+    	Collections.reverse(money);
+    	if ( wd >= 0) {
+    		for (Valuable moneyV: money) {
+    			if (wd >= moneyV.getValue() && amount.getCurrency().equals(moneyV.getCurrency())) {
+    				tempList.add(moneyV);
+    				wd -= moneyV.getValue();
     			}
-    		}
-    	}
-    	for (int i = 0; i <= money.size()-1; i++) {
-    		Valuable moneyValue = money.get(i);
-    		if (wd == 0 && amount.getCurrency().equals(money.get(i).getCurrency())) {
+        	}
+		}
+    	if (wd == 0) {
+    		for(Valuable moneyValue: tempList) {
     			money.remove(moneyValue);
     		}
+    		Valuable[] array = new Valuable[ tempList.size() ];
+    		tempList.toArray(array);
+            return array;
     	}
-    	Valuable[] array = new Valuable[ tempList.size() ];
-    	tempList.toArray(array);
-    	return array;
+		return null;
     }
     
     /** 
@@ -195,20 +175,17 @@ public class Purse {
     //test purse.withdraw(Valuable amount)
 	public static void main(String[] args) {
 		Purse p = new Purse(10);
+		Coin c1 = new Coin(10, "Baht");
 		p.insert(new Coin(1,"Baht"));
-		p.insert(new BankNote(2,"Dollar"));
+		p.insert(new Coin(2,"Baht"));
 		p.insert(new Coin(4,"Baht"));
-		p.insert(new Coin(5,"Dollar"));
+		p.insert(new Coin(5,"Baht"));
 		p.insert(new Coin(8,"Baht"));
-		p.insert(new Coin(10,"Baht"));
-		boolean shit = p.insert(new BankNote(30,"Baht"));
-		System.out.println(shit);
-		Valuable[] array = p.withdraw(new Coin(13,"Baht"));
-		for (Valuable ele : array) {
-			System.out.println(ele);
-		}
-		
+		p.insert(c1);  
+		p.withdraw(10);
 		System.out.println(p.toString());
 		System.out.println(money);
+		
+		
 	}
 }
