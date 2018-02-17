@@ -18,7 +18,7 @@ public class Money implements Valuable{
 	 * @return value of the Coin
 	 */
 	public double getValue() {
-		return value;
+		return this.value;
 	}
 
 	/**

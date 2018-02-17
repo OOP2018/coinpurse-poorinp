@@ -13,9 +13,9 @@ public class BankNote extends Money {
 	 * @param value is the value of banknote.
 	 * @param currency is the currency of banknote.
 	 */
-	public BankNote( double value, String currency) {
+	public BankNote( double value, String currency, long serialNumber) {
 		super(value, currency);
-		nextSerialNumber++;
+		nextSerialNumber++ ;
 		this.serialNumber = nextSerialNumber;
 	}
 	

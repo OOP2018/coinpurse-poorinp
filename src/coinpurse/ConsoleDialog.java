@@ -21,6 +21,8 @@ public class ConsoleDialog {
 	// The dialog receives a Purse object by dependency injection (as parameter to constructor)
     // so don't create a Purse here.
     private Purse purse;
+    // build money factory
+    MoneyFactory f = MoneyFactory.getInstance();
     
     /** 
      * Initialize a new Purse dialog.
@@ -80,12 +82,13 @@ public class ConsoleDialog {
     	}
         // parse input line into numbers
         Scanner scanline = new Scanner(inline);
-        while( scanline.hasNextDouble() ) {
-            double value = scanline.nextDouble();
-            Valuable money = makeMoney(value);
-            System.out.printf("Deposit %s... ", money.toString() );
-            boolean ok = purse.insert(money);
-            System.out.println( (ok? "ok" : "FAILED") );
+        try {
+        	Valuable m = f.createMoney( inline );
+        	System.out.printf("Deposit %s... ", m.toString() );
+			boolean ok = purse.insert(m);
+			System.out.println( (ok? "ok" : "FAILED") );
+        } catch (IllegalArgumentException ex) {
+        System.out.println("Sorry, "+inline+" is not a valid amount.");
         }
         if ( scanline.hasNext() )
             System.out.println("Invalid input: "+scanline.next() );
@@ -123,10 +126,10 @@ public class ConsoleDialog {
         scanline.close();
     }
     
-    /** Make a Coin (or BankNote or whatever) using requested value. */
-    private Valuable makeMoney(double value) {
-    	if (value >= 20) return new BankNote(value, CURRENCY);
-    	else return new Coin(value, CURRENCY);
-    }
+//    /** Make a Coin (or BankNote or whatever) using requested value. */
+//    private Valuable makeMoney(double value) {
+//    	if (value >= 20) return new BankNote(value, CURRENCY);
+//    	else return new Coin(value, CURRENCY);
+//    }
 
 }
