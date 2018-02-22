@@ -5,6 +5,12 @@ public class ThaiMoneyFactory extends MoneyFactory{
 	private static long nextSerialNumber = 1000000;
 	private long serialNumber;
 	
+	/**
+	 * This method can make the new money that have local currency (Baht) and value that is double.
+	 * @param value is the value is parse from String value in createMoney(String value)
+	 * @return new Money that is created
+	 * @throws IllegalArgumentException if the value is invalid
+	 */
 	public Valuable createMoney(double value) {		
 		if (value == 1 || value == 2 || value == 5 || value == 10) {
 			return new Coin(value, "Baht");

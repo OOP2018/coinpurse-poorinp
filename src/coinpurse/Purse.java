@@ -16,7 +16,7 @@ import java.util.Comparator;
  */
 public class Purse {
     /** Collection of objects in the purse. */
-    public static List<Valuable> money;
+    public List<Valuable> money;
     
     /**
      * Comparator of objects in the purse
@@ -141,24 +141,25 @@ public class Purse {
      */
     public Valuable[] withdraw(Valuable amount) {
     	List<Valuable> tempList = new ArrayList<>();
+    	List<Valuable> tempList2 = new ArrayList<>();
     	double wd = amount.getValue();
-    	money = MoneyUtil.filterByCurrency(money, amount.getCurrency());
-    	Collections.sort(money, comp);
-    	Collections.reverse(money);
+    	tempList = MoneyUtil.filterByCurrency(money, amount.getCurrency());
+    	Collections.sort(tempList);
+    	Collections.reverse(tempList);
     	if ( wd >= 0) {
-    		for (Valuable moneyV: money) {
+    		for (Valuable moneyV: tempList) {
     			if (wd >= moneyV.getValue() && amount.getCurrency().equals(moneyV.getCurrency())) {
-    				tempList.add(moneyV);
+    				tempList2.add(moneyV);
     				wd -= moneyV.getValue();
     			}
         	}
 		}
     	if (wd == 0) {
-    		for(Valuable moneyValue: tempList) {
+    		for(Valuable moneyValue: tempList2) {
     			money.remove(moneyValue);
     		}
-    		Valuable[] array = new Valuable[ tempList.size() ];
-    		tempList.toArray(array);
+    		Valuable[] array = new Valuable[ tempList2.size() ];
+    		tempList2.toArray(array);
             return array;
     	}
 		return null;
@@ -183,9 +184,7 @@ public class Purse {
 		p.insert(new Coin(8,"Baht"));
 		p.insert(c1);  
 		p.withdraw(10);
-		System.out.println(p.toString());
-		System.out.println(money);
-		
+		System.out.println(p.toString());		
 		
 	}
 }
