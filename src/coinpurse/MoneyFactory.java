@@ -24,17 +24,16 @@ public abstract class MoneyFactory {
 	 * Method accepts the money value with String ,then let the abstract createMoney create the money with double value.
 	 * @param value String that can parse to double and will return new money with value.
 	 * @return createMoney(double value) to create money from value.
-	 * @throws IllegalArgumentException if value is not String or cannot parse to double.
+	 * @throw IllegalArgumentException if value is not String or cannot parse to double.
 	 */
 	public Valuable createMoney(String value) {
-		double value2 = 0;
+		double value2;
 		try {
 			value2 = Double.parseDouble(value);
 		}catch (IllegalArgumentException ex) {
-			System.out.println(ex.getMessage());
-			ex.printStackTrace();
+			throw new IllegalArgumentException();
 		}
-		return createMoney(value2);
+		return createMoney(Double.parseDouble(value));
 	}
 	
 	/**
