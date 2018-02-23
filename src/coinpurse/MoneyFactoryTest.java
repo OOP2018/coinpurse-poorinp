@@ -49,7 +49,7 @@ public class MoneyFactoryTest {
      * test that money factory can create money
      */
     @Test(timeout=1000)
-    public void testCreateMoney()
+    public void testCreateMoneyTrue()
     {   
     	MoneyFactory factory = MoneyFactory.getInstance();
 		Valuable m = factory.createMoney( 5 );
@@ -57,5 +57,15 @@ public class MoneyFactoryTest {
 		Valuable m2 = factory.createMoney("1000.0");
 		assertEquals(1000, m2.getValue(), TOL);
 		assertEquals("Baht", m2.getCurrency());
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateMoneyArgument()
+    {   
+    	MoneyFactory factory = MoneyFactory.getInstance();
+    	Valuable m3 = factory.createMoney(3);
+		Valuable m4 = factory.createMoney("A");
+		Valuable m = factory.createMoney( 5 );
+		Valuable m2 = factory.createMoney("1000.0");
     }
 }
