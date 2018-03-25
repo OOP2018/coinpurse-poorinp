@@ -2,6 +2,9 @@ package coinpurse;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import coinpurse.strategy.WithdrawStrategy;
+
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -15,6 +18,8 @@ import java.util.Comparator;
  *  @author Poorin Pichayamongkol
  */
 public class Purse {
+	
+	WithdrawStrategy strategy;
     /** Collection of objects in the purse. */
     public List<Valuable> money;
     
@@ -171,6 +176,10 @@ public class Purse {
      */
     public String toString() {
     	return this.count()+" money with value "+this.getBalance();
+    }
+    
+    public void setWithdrawStrategy(WithdrawStrategy strategy) {
+    	this.strategy = strategy;
     }
     
     //test purse.withdraw(Valuable amount)
